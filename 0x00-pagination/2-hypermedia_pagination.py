@@ -2,7 +2,7 @@
 """Hypermedia pagination"""
 import csv
 import math
-from typing import List, Tuple, Dict, Union
+from typing import List, Tuple, Dict, Any
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, ...]:
@@ -10,6 +10,7 @@ def index_range(page: int, page_size: int) -> Tuple[int, ...]:
     start_index = page_size * (page - 1)
     end_index = start_index + page_size
     return (start_index, end_index)
+
 
 class Server:
     """Server class to paginate a database of popular baby names.
@@ -38,10 +39,8 @@ class Server:
         start, end = index_range(page, page_size)
         data = self.dataset()
         return [] if end >= len(data) else data[start: end]
-      
-  
-    def get_hyper(self, page: int = 1, page_size: int = 10
-                 ) -> Dict[str, Union[int, List[List], None]]:
+
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Any]:
         """
         Hyper Pagination
         """
