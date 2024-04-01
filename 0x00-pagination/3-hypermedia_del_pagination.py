@@ -47,21 +47,20 @@ class Server:
         :param page_size:
         :return:
         """
-        assert isinstance(index, int)
-        assert isinstance(page_size, int)
-        csv = self.indexed_dataset()
-        csv_size = len(csv)
-        assert 0 <= index < csv_size
+        dataset = self.indexed_dataset()
+        assert index > 0 and index < len(dataset)
         data = []
-        _next = index
-        for _ in range(page_size):
-            while not csv.get(_next):
-                _next += 1
-            data.append(csv.get(_next))
-            _next += 1
+        count = 0
+        i = index
+        while count < page_size:
+            item = dataset.get(i)
+            if item:
+                count += 1
+                data += [item]
+            i += 1
         return {
-            "index": index,
-            "data": data,
-            "page_size": page_size,
-            "next_index": _next
+            'index': index,
+            'data': data,
+            'page_size': page_size,
+            'next_index': i,
         }
