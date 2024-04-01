@@ -41,22 +41,27 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
-        Get deletion proof paginatated data
+        Returns a dictionary with key-value pairs
+         (index, next_index, page_size, data)
+        :param index:
+        :param page_size:
+        :return:
         """
-        dataset = self.indexed_dataset()
-        assert index > 0 and index < len(dataset)
+        assert type(index) == int
+        assert type(page_size) == int
+        csv = self.indexed_dataset()
+        csv_size = len(csv)
+        assert 0 <= index < csv_size
         data = []
-        count = 0
-        i = index
-        while count < page_size:
-            item = dataset.get(i)
-            if item:
-                count += 1
-                data += [item]
-            i += 1
+        _next = index
+        for _ in range(page_size):
+            while not csv.get(_next):
+                _next += 1
+            data.append(csv.get(_next))
+            _next += 1
         return {
-            'index': index,
-            'data': data,
-            'page_size': page_size,
-            'next_index': i,
+            "index": index,
+            "data": data,
+            "page_size": page_size,
+            "next_index": _next
         }
