@@ -11,6 +11,7 @@ def index_range(page: int, page_size: int) -> Tuple[int, ...]:
     end_index = start_index + page_size
     return (start_index, end_index)
 
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -19,6 +20,7 @@ class Server:
     def __init__(self):
         self.__dataset = None
 
+  
     def dataset(self) -> List[List]:
         """Cached dataset
         """
@@ -30,6 +32,7 @@ class Server:
 
         return self.__dataset
 
+  
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """Get current page dataset"""
         assert isinstance(page, int) and page > 0
