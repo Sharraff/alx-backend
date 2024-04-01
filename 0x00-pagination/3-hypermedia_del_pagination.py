@@ -47,8 +47,8 @@ class Server:
         :param page_size:
         :return:
         """
-        assert type(index) == int
-        assert type(page_size) == int
+        assert isinstance(index, int)
+        assert isinstance(page_size, int)
         csv = self.indexed_dataset()
         csv_size = len(csv)
         assert 0 <= index < csv_size
