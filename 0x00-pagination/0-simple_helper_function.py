@@ -3,6 +3,7 @@
 Simple pagination helper function
 """
 
+
 def index_range(page, page_size):
     """
     generate list index range based on pagination params
