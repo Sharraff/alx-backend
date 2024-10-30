@@ -3,6 +3,7 @@
 from base_caching import BaseCaching
 from collections import deque
 
+
 class FIFOCache(BaseCaching):
     """
     FIFO caching
@@ -11,7 +12,6 @@ class FIFOCache(BaseCaching):
     def __init__(self):
         super().__init__()
         self.queue = deque()
-    
 
     def put(self, key, item):
         """
@@ -27,10 +27,9 @@ class FIFOCache(BaseCaching):
             print(f'DISCARD: {key_to_discard}')
         self.queue.append(key)
         self.cache_data[key] = item
-    
+
     def get(self, key):
         """
         retrieves item form cache
         """
         return self.cache_data.get(key)
-

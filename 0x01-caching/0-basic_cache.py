@@ -2,6 +2,7 @@
 """Basic dictionary"""
 from base_caching import BaseCaching
 
+
 class BasicCache(BaseCaching):
     """
     basic Caching system
