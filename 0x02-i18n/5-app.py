@@ -10,6 +10,7 @@ from flask_babel import Babel
 app = Flask(__name__)
 babel = Babel(app)
 
+
 class Config:
     """
     Config class.
@@ -28,6 +29,7 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
+
 def get_user(login_as):
     """
     get user by id
@@ -37,12 +39,14 @@ def get_user(login_as):
     except Exception:
         return
 
+
 @app.before_request
 def before_request():
     """
     middleware to process before request
     """
     g.user = get_user(request.args.get("login_as"))
+
 
 @babel.localeselector
 def get_locale():
