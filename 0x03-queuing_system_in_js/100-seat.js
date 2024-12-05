@@ -2,9 +2,10 @@ import express from 'express';
 import redis from 'redis';
 import util from 'util';
 import kue from 'kue';
-import { resolveSrv } from 'dns';
 
 const client = redis.createClient();
+const app = express();
+const port = 1245;
 
 client
     .on("connect", () => {
@@ -26,8 +27,6 @@ async function getCurrentAvailableSeats() {
     const getAsync = util.promisify(client.get).bind(client);
     return getAsync('available_seats');
 }
-
-const app = express();
 
 app.get('/available_seats', async (req, res) => {
     res.json({ numberOfAvailableSeats: await getCurrentAvailableSeats() }).end();
